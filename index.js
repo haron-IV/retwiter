@@ -4,14 +4,14 @@ const { local, prod } = require('./config/browser-config');
 const { login } = require('./src/login/login');
 const { retweet } = require('./src/retweet/retweet');
 
-const getEnvironment = () => {
+const getBrowserConfig = () => {
     const env = process.env.ENV;
-    if(env = "local") return local;
+    if(env === "local") return local;
     return prod;
 };
 
 const initPage = async () => {
-    const browser = await puppeteer.launch(getEnvironment());
+    const browser = await puppeteer.launch(getBrowserConfig());
     const page = await browser.newPage();
     await page.goto('https://twitter.com');
 
