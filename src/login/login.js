@@ -10,7 +10,6 @@ const login = async (page, username, password) => {
     const btn = await page.$(loginBtn);
     await btn.evaluate(btn => btn.click());
     await page.waitForNavigation();
-    
     await securityLogin(page);
 
     infoLog(`User: ${username} logged in.`);

@@ -3,7 +3,8 @@ const { typeDelay } = require('../helpers/navigation');
 
 const isSecurityLoginNeeded = async (page) => {
     const currentURL = await page.url();
-    if (!currentURL.includes("login?email_disabled=true")) return;
+    if (!currentURL.includes("login?email_disabled=true")) return false;
+    return true;
 };
 
 const login = async (page, username, password) => {
@@ -17,8 +18,9 @@ const login = async (page, username, password) => {
 
 
 const securityLogin = async (page) => {
-    await isSecurityLoginNeeded(page);
-    await login(page, process.env.REAL_USERNAME, process.env.PASSWORD);
+    if(await isSecurityLoginNeeded(page)) {
+        await login(page, process.env.REAL_USERNAME, process.env.PASSWORD);
+    }
 };
 
 module.exports = { securityLogin };
