@@ -1,9 +1,7 @@
 const local = {
     headless: false,
     defaultViewport: null,
-    args: [
-        '--window-size=1920,1080'
-    ]
+    args: []
 };
 
 const prod = {
@@ -15,4 +13,4 @@ const prod = {
     ]
 };
 
-module.exports = {local, prod};
+module.exports = { local, prod };
