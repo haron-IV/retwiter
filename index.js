@@ -23,6 +23,7 @@ const initPage = async () => {
 const init = async () => {
     const { page, browser } = await initPage();
     await login(page, process.env.USERNAME, process.env.PASSWORD);
+    //TODO: after login go to page with en lang like: https://twitter.com/home?lang=en
     await retweet(page);
 
     await browser.close();
