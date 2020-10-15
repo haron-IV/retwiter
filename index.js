@@ -20,6 +20,8 @@ const initPage = async () => {
     return { page, browser };
 };
 
+// TODO: change names everywhere in app from tweeter to twitter
+
 const init = async () => {
     const { page, browser } = await initPage();
     await login(page, process.env.USERNAME, process.env.PASSWORD);

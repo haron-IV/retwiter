@@ -1,3 +1,5 @@
+const { selectTweetNotOlderThanHours } = require('../../config/app-config');
+
 const checkIfItIsHoursAgo = time => time.slice(-1)[0] === "h";
 const checkIfItIsMinutesAgo = time => time.slice(-1)[0] === "m";
 const formatTimeToNumber = formatedTime => {
@@ -6,7 +8,6 @@ const formatTimeToNumber = formatedTime => {
     return JSON.parse(formatedTime.join(''));
 };
 
-//TODO: add to config time for hours, minutes
 const selectTweet = async (page, tweetsTime) => {
     for (const tweetTime of tweetsTime) {
         const time = await page.evaluate(tweetTime => tweetTime.textContent, tweetTime);
@@ -15,7 +16,7 @@ const selectTweet = async (page, tweetsTime) => {
 
         if (checkIfItIsHoursAgo(time)) {
             const timeAgo = formatTimeToNumber(formatedTime);
-            if (timeAgo < 2) selectedTweet = tweetTime;
+            if (timeAgo < selectTweetNotOlderThanHours) selectedTweet = tweetTime;
         }
 
         if (checkIfItIsMinutesAgo(time)) selectedTweet = tweetTime;

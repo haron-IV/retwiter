@@ -1,13 +1,31 @@
-const infoLog = (text) => {
-    const textLenght = text.length;
+const horizontalLine = (textLenght, template) => {
     let horizontalLine = "";
-    while(horizontalLine.length < textLenght + 4 ) horizontalLine+= "=";
+    while(horizontalLine.length < textLenght + 4 ) horizontalLine+= template;
+
+    return horizontalLine;
+};
+
+const infoLog = text => {
+    const textLenght = text.length;
+    let line = horizontalLine(textLenght, "=");
     
     console.log(`
-        ${horizontalLine}
-        = ${text} =
-        ${horizontalLine}
+    ${line}
+    = ${text} =
+    ${line}
     `);
 };
 
-module.exports = { infoLog };
+const baseLog = (title, text) => {
+    const textLenght = text.length;
+    let line = horizontalLine(textLenght, "-");
+
+    console.log(`
+    ${title}
+    ${line}
+      ${text}
+    ${line}
+    `)
+}
+
+module.exports = { infoLog, baseLog };

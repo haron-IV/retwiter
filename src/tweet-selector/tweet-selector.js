@@ -12,6 +12,8 @@ const tweetSelector = async (page) => {
     const tweetsTime = await page.$$(tweetTime);
     const selectedTweet = await selectTweet(page, tweetsTime);
     const tweetLink = await page.evaluate(selectedTweet => selectedTweet.parentNode.getAttribute("href"), selectedTweet);
+
+    return tweetLink;
 };
 
 module.exports = { tweetSelector };
