@@ -1,3 +1,5 @@
+const { createFullDate } = require('./date');
+
 const horizontalLine = (textLenght, template) => {
     let horizontalLine = "";
     while(horizontalLine.length < textLenght + 4 ) horizontalLine+= template;
@@ -28,8 +30,7 @@ const baseLog = (title, text) => {
 };
 
 const actionLog = text => {
-    const date = new Date();
-    console.log(`| ${date.toDateString()} / ${date.toLocaleTimeString()} | - ${text} -`);
+    console.log(`| ${createFullDate()} | - ${text} -`);
 };
 
 module.exports = { infoLog, baseLog, actionLog };
