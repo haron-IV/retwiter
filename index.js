@@ -2,7 +2,7 @@ require('dotenv').config();
 const puppeteer = require('puppeteer');
 const { local, prod } = require('./config/browser-config');
 const { login } = require('./src/login/login');
-const { retweet } = require('./src/retweet/retweet');
+const { retwitt } = require('./src/retwitt/retwitt');
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -26,7 +26,7 @@ const init = async () => {
     const { page, browser } = await initPage();
     await login(page, process.env.USERNAME, process.env.PASSWORD);
     //TODO: after login go to page with en lang like: https://twitter.com/home?lang=en
-    await retweet(page);
+    await retwitt(page);
 
     await browser.close();
 };

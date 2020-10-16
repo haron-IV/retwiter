@@ -1,4 +1,4 @@
 module.exports = {
-    tweeterUrl: "https://tweeter.com",
-    selectTweetNotOlderThanHours: 2
+    twitterUrl: "https://twitter.com",
+    selectTwittNotOlderThanHours: 2
 }
