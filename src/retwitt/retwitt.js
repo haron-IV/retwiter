@@ -1,5 +1,5 @@
 const { twittSelector } = require('../twitt-selector/twitt-selector');
-const { twitterUrl } = require('../../config/app-config');
+const { twitterBaseUrl } = require('../../config/app-config');
 const { baseLog, actionLog } = require('../helpers/logs');
 const { retwittBtn, confirmRetwittBtn } = require('./elements');
 
@@ -14,7 +14,7 @@ const confirmRetwitt = async page => {
 };
 
 const retwitt = async (page) => {
-    const twittToShareLink = `${twitterUrl}${await twittSelector(page)}`;
+    const twittToShareLink = `${twitterBaseUrl}${await twittSelector(page)}`;
     baseLog("Selected twitt to share: ", twittToShareLink);
     await page.goto(twittToShareLink);
     await clickRetwittButton(page);
