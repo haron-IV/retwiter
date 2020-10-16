@@ -4,6 +4,7 @@ const { baseLog, actionLog } = require('../helpers/logs');
 const { retwittBtn, confirmRetwittBtn, twittAuthorNameHolder } = require('./elements');
 const { saveRetwittedPost } = require('../database-management/repository/retwitted-post-repository');
 const { createFullDate } = require('../helpers/date');
+const { wasTwittShared } = require('./was-twitt-shared');
 
 const clickRetwittButton = async page => { 
     await page.waitForSelector(retwittBtn, { visible: true});
@@ -31,9 +32,15 @@ const confirmRetwitt = async (page, twittUrl) => {
 const retwitt = async (page) => {
     const twittToShareLink = `${twitterBaseUrl}${await twittSelector(page)}`;
     baseLog("Selected twitt to share: ", twittToShareLink);
-    await page.goto(twittToShareLink);
-    await clickRetwittButton(page);
-    await confirmRetwitt(page, twittToShareLink);
+    if (!await wasTwittShared(twittToShareLink)) {
+        await page.goto(twittToShareLink);
+        await clickRetwittButton(page);
+        await confirmRetwitt(page, twittToShareLink);
+        // TODO: wait x time 
+    } else {
+        actionLog("Twitt was already shared.")
+    }
+    // TODO: if twitt was shared go to select tweet
 };
 
 module.exports = { retwitt };

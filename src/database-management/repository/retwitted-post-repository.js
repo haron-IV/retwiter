@@ -11,4 +11,17 @@ const saveRetwittedPost = obj => {
     }
 };
 
-module.exports = { saveRetwittedPost };
+const getRetwittedPostByUrl =  postUrl => {
+    const RetwittedPostModel = require('../models/retwitted-posts');
+    return RetwittedPostModel.find({twittUrl: postUrl}, twittList => {
+        return twittList;
+    })
+    .catch(err => console.error(err));
+};
+
+const getAllRetwittedPosts = () => {
+    const RetwittedPostModel = require('../models/retwitted-posts');
+    return RetwittedPostModel.find({}, twittList => twittList);
+};
+
+module.exports = { saveRetwittedPost, getRetwittedPostByUrl, getAllRetwittedPosts };
