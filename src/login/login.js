@@ -7,8 +7,7 @@ const login = async (page, username, password) => {
     await page.waitForSelector(usernameInp);
     await page.type(usernameInp, username, typeDelay);
     await page.type(passwordInp, password, typeDelay);
-    const btn = await page.$(loginBtn);
-    await btn.evaluate(btn => btn.click());
+    await page.click(loginBtn);
     await page.waitForNavigation();
     await securityLogin(page);
 

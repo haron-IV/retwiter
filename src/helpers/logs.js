@@ -20,12 +20,16 @@ const baseLog = (title, text) => {
     const textLenght = text.length;
     let line = horizontalLine(textLenght, "-");
 
-    console.log(`
-    ${title}
+    console.log(`${title}
     ${line}
       ${text}
     ${line}
-    `)
-}
+    `);
+};
 
-module.exports = { infoLog, baseLog };
+const actionLog = text => {
+    const date = new Date();
+    console.log(`| ${date.toDateString()} / ${date.toLocaleTimeString()} | - ${text} -`);
+};
+
+module.exports = { infoLog, baseLog, actionLog };
