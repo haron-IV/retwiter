@@ -29,13 +29,13 @@ const init = async () => {
     logo();
     connectToDb();
     await login(page, process.env.USERNAME, process.env.PASSWORD);
-    try {
-        await retwitt(page);
-    } catch {
+    await retwitt(page);
+
+    process.on('uncaughtException', () => {
         baseLog("Retwiter catched an error, retwiter will be started again.");
         await browser.close();
         init();
-    }
+    });
 };
 
 init();
