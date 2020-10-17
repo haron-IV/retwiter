@@ -5,11 +5,16 @@ const { waitSecBeforeClickRetwittButtons } = require('../../config/app-config');
 const { calcSecToMs, delay } = require('../helpers/time');
 const { actionLog } = require('../helpers/logs');
 const { increaseRetwitedPostsCount, getRetwitedPostCount } = require('../../app-state');
+const { retwitt } = require('./retwitt');
 
 const clickRetwittButton = async page => {
     await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
-    await page.waitForSelector(retwittBtn, { visible: true});
-    await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
+    try {
+        await page.waitForSelector(retwittBtn, { visible: true});
+        await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
+    } catch {
+        await retwitt(page);
+    }
 };
 
 const getTwittAutor = async page => {
