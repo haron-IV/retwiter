@@ -2,7 +2,7 @@ const { getRetwittedPostByUrl } = require('../database-management/repository/ret
 
 const wasTwittShared = async (twittUrl) => {
     const twitt = await getRetwittedPostByUrl(twittUrl);
-    if (!twitt) return false;
+    if (twitt.length === 0) return false;
     return true;
 };
 

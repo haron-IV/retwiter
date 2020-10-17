@@ -1,14 +1,17 @@
 const { twittSelector } = require('../twitt-selector/twitt-selector');
-const { twitterBaseUrl } = require('../../config/app-config');
+const { twitterBaseUrl, langQuery } = require('../../config/app-config');
 const { baseLog, actionLog } = require('../helpers/logs');
 const { retwittBtn, confirmRetwittBtn, twittAuthorNameHolder } = require('./elements');
 const { saveRetwittedPost } = require('../database-management/repository/retwitted-post-repository');
 const { createFullDate } = require('../helpers/date');
 const { wasTwittShared } = require('./was-twitt-shared');
+const { calcMinsToMs, delay } = require('../helpers/time');
+const { URLwithLangQuery } = require('../helpers/url-builder');
 
-const clickRetwittButton = async page => { 
+const clickRetwittButton = async page => {
+    await delay(4000);
     await page.waitForSelector(retwittBtn, { visible: true});
-    await page.click(retwittBtn);
+    await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
 };
 
 const getTwittAutor = async page => {
@@ -19,6 +22,7 @@ const getTwittAutor = async page => {
 };
 
 const confirmRetwitt = async (page, twittUrl) => {
+    await delay(4000);
     await page.waitForSelector(confirmRetwittBtn, { visible: true});
     await page.click(confirmRetwittBtn);
     saveRetwittedPost({
@@ -30,17 +34,22 @@ const confirmRetwitt = async (page, twittUrl) => {
 };
 
 const retwitt = async (page) => {
-    const twittToShareLink = `${twitterBaseUrl}${await twittSelector(page)}`;
+    await page.goto(URLwithLangQuery('/home'));
+    await delay(calcMinsToMs(1));
+
+    const twittToShareLink = URLwithLangQuery(await twittSelector(page));
     baseLog("Selected twitt to share: ", twittToShareLink);
     if (!await wasTwittShared(twittToShareLink)) {
         await page.goto(twittToShareLink);
         await clickRetwittButton(page);
-        await confirmRetwitt(page, twittToShareLink);
-        // TODO: wait x time 
+        await confirmRetwitt(page, twittToShareLink);    
+        await delay(calcMinsToMs(15));
+        await retwitt(page);
     } else {
         actionLog("Twitt was already shared.")
+        await delay(calcMinsToMs(2));
+        await retwitt(page);
     }
-    // TODO: if twitt was shared go to select tweet
 };
 
 module.exports = { retwitt };

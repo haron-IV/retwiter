@@ -1,8 +1,7 @@
-const retwittedPosts = require('../models/retwitted-posts');
+const RetwittedPostModel = require('../models/retwitted-posts');
 
 const saveRetwittedPost = obj => {
-    try {
-        const RetwittedPostModel = require('../models/retwitted-posts');
+    try {        
         const retwittedPost = new RetwittedPostModel(obj);
 
         return retwittedPost.save().catch( err => console.log(err));
@@ -12,7 +11,6 @@ const saveRetwittedPost = obj => {
 };
 
 const getRetwittedPostByUrl =  postUrl => {
-    const RetwittedPostModel = require('../models/retwitted-posts');
     return RetwittedPostModel.find({twittUrl: postUrl}, twittList => {
         return twittList;
     })
@@ -20,7 +18,6 @@ const getRetwittedPostByUrl =  postUrl => {
 };
 
 const getAllRetwittedPosts = () => {
-    const RetwittedPostModel = require('../models/retwitted-posts');
     return RetwittedPostModel.find({}, twittList => twittList);
 };
 
