@@ -31,7 +31,7 @@ const init = async () => {
     await login(page, process.env.USERNAME, process.env.PASSWORD);
     await retwitt(page);
 
-    process.on('uncaughtException', () => {
+    process.on('uncaughtException', async () => {
         baseLog("Retwiter catched an error, retwiter will be started again.");
         await browser.close();
         init();
