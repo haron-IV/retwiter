@@ -6,7 +6,6 @@ const { login } = require('./src/login/login');
 const { retwitt } = require('./src/retwitt/retwitt');
 const { connectToDb } = require('./src/database-management/index');
 const { logo } = require('./logo');
-const { baseLog } = require('./src/helpers/logs');
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -29,13 +28,11 @@ const init = async () => {
     logo();
     connectToDb();
     await login(page, process.env.USERNAME, process.env.PASSWORD);
-    await retwitt(page);
-
-    process.on('uncaughtException', async () => {
-        baseLog("Retwiter catched an error, retwiter will be started again.");
-        await browser.close();
-        init();
-    });
+    await retwitt(page, browser);
 };
 
 init();
+
+module.exports = { init };
+
+// TODO: Catch errors and after error that stop working the app restart whole application or go to base retwitt() method

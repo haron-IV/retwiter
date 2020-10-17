@@ -6,11 +6,11 @@ const { calcMinsToMs, delay } = require('../helpers/time');
 const { URLwithLangQuery } = require('../helpers/url-builder');
 const { clickRetwittButton,  confirmRetwitt } = require('./page-actions');
 
-const retwitt = async (page) => {
+const retwitt = async (page, browser) => {
     await page.goto(URLwithLangQuery('/home'));
     await delay(calcMinsToMs(waitMinsAfterGoToHome));
 
-    const twittToShareLink = URLwithLangQuery(await twittSelector(page));
+    const twittToShareLink = URLwithLangQuery(await twittSelector(page, browser));
     baseLog("Selected twitt to share: ", twittToShareLink);
     if (!await wasTwittShared(twittToShareLink)) {
         await page.goto(twittToShareLink);

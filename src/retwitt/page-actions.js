@@ -4,6 +4,7 @@ const { createFullDate } = require('../helpers/date');
 const { waitSecBeforeClickRetwittButtons } = require('../../config/app-config');
 const { calcSecToMs, delay } = require('../helpers/time');
 const { actionLog } = require('../helpers/logs');
+const { increaseRetwitedPostsCount, getRetwitedPostCount } = require('../../app-state');
 
 const clickRetwittButton = async page => {
     await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
@@ -27,7 +28,8 @@ const confirmRetwitt = async (page, twittUrl) => {
         retwittDate: createFullDate(),
         retwittedFrom: await getTwittAutor(page)
     });
-    actionLog("Post retwitted");
+    increaseRetwitedPostsCount();
+    actionLog(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
 };
 
 module.exports = { clickRetwittButton,  confirmRetwitt };

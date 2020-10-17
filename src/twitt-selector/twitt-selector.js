@@ -1,7 +1,7 @@
 const { twittTime } = require('./elements');
 const selectTwitt = require('./select-twitt');
 
-const twittSelector = async (page) => {
+const twittSelector = async (page, browser) => {
     await page.waitForSelector(twittTime);
     const twittsTime = await page.$$(twittTime);
     const selectedTwitt = await selectTwitt(page, twittsTime);
