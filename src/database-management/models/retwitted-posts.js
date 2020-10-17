@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// TODO: add user which retwitted
 const retwittedPostModel = new Schema({
     twittUrl: {
         type: String

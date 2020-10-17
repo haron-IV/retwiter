@@ -6,6 +6,7 @@ const { login } = require('./src/login/login');
 const { retwitt } = require('./src/retwitt/retwitt');
 const { connectToDb } = require('./src/database-management/index');
 const { logo } = require('./logo');
+const { baseLog } = require('./src/helpers/logs');
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -17,7 +18,7 @@ const initPage = async () => {
     const browser = await puppeteer.launch(getBrowserConfig());
     const page = await browser.newPage();
     await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
-    await page.setViewport({width: 1440, height: 754});
+    await page.setViewport({ width: 1440, height: 754 });
     await page.goto(twitterBaseUrlWithEnLang);
 
     return { page, browser };
@@ -28,9 +29,13 @@ const init = async () => {
     logo();
     connectToDb();
     await login(page, process.env.USERNAME, process.env.PASSWORD);
-    await retwitt(page);
-
-    await browser.close();
+    try {
+        await retwitt(page);
+    } catch {
+        baseLog("Retwiter catched an error, retwiter will be started again.");
+        await browser.close();
+        init();
+    }
 };
 
 init();

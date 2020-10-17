@@ -18,7 +18,7 @@ const infoLog = text => {
     `);
 };
 
-const baseLog = (title, text) => {
+const baseLog = (title = "", text) => {
     const textLenght = text.length;
     let line = horizontalLine(textLenght, "-");
 
