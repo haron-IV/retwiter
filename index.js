@@ -5,6 +5,7 @@ const { twitterBaseUrlWithEnLang } = require('./config/app-config');
 const { login } = require('./src/login/login');
 const { retwitt } = require('./src/retwitt/retwitt');
 const { connectToDb } = require('./src/database-management/index');
+const { logo } = require('./logo');
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -24,6 +25,7 @@ const initPage = async () => {
 
 const init = async () => {
     const { page, browser } = await initPage();
+    logo();
     connectToDb();
     await login(page, process.env.USERNAME, process.env.PASSWORD);
     await retwitt(page);
