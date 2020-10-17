@@ -1,0 +1,33 @@
+const { retwittBtn, confirmRetwittBtn, twittAuthorNameHolder } = require('./elements');
+const { saveRetwittedPost } = require('../database-management/repository/retwitted-post-repository');
+const { createFullDate } = require('../helpers/date');
+const { waitSecBeforeClickIn } = require('../../config/app-config');
+const { calcSecToMs, delay } = require('../helpers/time');
+const { actionLog } = require('../helpers/logs');
+
+const clickRetwittButton = async page => {
+    await delay(calcSecToMs(waitSecBeforeClickIn));
+    await page.waitForSelector(retwittBtn, { visible: true});
+    await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
+};
+
+const getTwittAutor = async page => {
+    const twittAuthorEl = await page.$(twittAuthorNameHolder);
+    const twittAuthor = await page.evaluate(twittAuthorEl => twittAuthorEl.textContent, twittAuthorEl);
+
+    return twittAuthor;
+};
+
+const confirmRetwitt = async (page, twittUrl) => {
+    await delay(calcSecToMs(waitSecBeforeClickIn));
+    await page.waitForSelector(confirmRetwittBtn, { visible: true});
+    await page.click(confirmRetwittBtn);
+    saveRetwittedPost({
+        twittUrl: twittUrl,
+        retwittDate: createFullDate(),
+        retwittedFrom: await getTwittAutor(page)
+    });
+    actionLog("Post retwitted");
+};
+
+module.exports = { clickRetwittButton,  confirmRetwitt };
