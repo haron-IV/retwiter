@@ -10,6 +10,9 @@ const { state, getError } = require('./app-state');
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
 const { logger } = require('./src/logger/logger');
 
+// TODO: update readme and docs with maved sh files infto direcotry /scripts
+
+
 const getBrowserConfig = () => {
     const env = process.env.ENV;
     if(env === "local") return local;
@@ -30,6 +33,7 @@ const watchErrors = async browser => {
     watch.watch(state, "error", async () => {
         logger.error(`${getError()} | Application will restart.`);
         await browser.close();
+        process.kill();
         await init();
     });
 };
