@@ -4,15 +4,15 @@ const { createFullDate } = require('../helpers/date');
 const { waitSecBeforeClickRetwittButtons } = require('../../config/app-config');
 const { calcSecToMs, delay } = require('../helpers/time');
 const { actionLog } = require('../helpers/logs');
-const { increaseRetwitedPostsCount, getRetwitedPostCount } = require('../../app-state');
+const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('../../app-state');
 
 const clickRetwittButton = async page => {
     try {
         await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
         await page.waitForSelector(retwittBtn, { visible: true});
         await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
-    } catch {
-
+    } catch (err){
+        setError(err);
     }
 };
 
