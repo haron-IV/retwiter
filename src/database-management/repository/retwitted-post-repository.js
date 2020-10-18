@@ -1,4 +1,5 @@
 const RetwittedPostModel = require('../models/retwitted-posts');
+const { logger } = require('../../logger/logger');
 
 const saveRetwittedPost = obj => {
     try {        
@@ -6,7 +7,7 @@ const saveRetwittedPost = obj => {
 
         return retwittedPost.save().catch( err => console.log(err));
     } catch ( err ) {
-        console.error(err);
+        logger.err(err);
     }
 };
 
@@ -14,7 +15,7 @@ const getRetwittedPostByUrl =  postUrl => {
     return RetwittedPostModel.find({twittUrl: postUrl}, twittList => {
         return twittList;
     })
-    .catch(err => console.error(err));
+    .catch(err => logger.error(err));
 };
 
 const getAllRetwittedPosts = () => {

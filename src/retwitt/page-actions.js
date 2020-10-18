@@ -3,7 +3,7 @@ const { saveRetwittedPost } = require('../database-management/repository/retwitt
 const { createFullDate } = require('../helpers/date');
 const { waitSecBeforeClickRetwittButtons } = require('../../config/app-config');
 const { calcSecToMs, delay } = require('../helpers/time');
-const { actionLog } = require('../helpers/logs');
+const { logger } = require('../logger/logger');
 const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('../../app-state');
 
 const clickRetwittButton = async page => {
@@ -38,7 +38,7 @@ const confirmRetwitt = async (page, twittUrl) => {
             retwittedFrom: await getTwittAutor(page)
         });
         increaseRetwitedPostsCount();
-        actionLog(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
+        logger.info(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
     } catch {
         setError("Error: confirmRetwitt()");
     }

@@ -8,7 +8,7 @@ const { connectToDb } = require('./src/database-management/index');
 const { logo } = require('./logo');
 const { state, getError } = require('./app-state');
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
-const { errorLog } = require('./src/helpers/logs');
+const { logger } = require('./src/logger/logger');
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -28,7 +28,7 @@ const initPage = async () => {
 
 const watchErrors = async browser => {
     watch.watch(state, "error", async () => {
-        errorLog(`${getError()} | Application will restart.`);
+        logger.error(`${getError()} | Application will restart.`);
         await browser.close();
         await init();
     });
