@@ -27,8 +27,7 @@ const initPage = async () => {
 };
 
 const watchErrors = async browser => {
-    const browser = browser;
-    watch.watch(state, "error", async browser => {
+    watch.watch(state, "error", async () => {
         logger.error(`${getError()} | Application will restart.`);
         await browser.close();
         await init();
