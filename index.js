@@ -33,7 +33,7 @@ const watchErrors = async browser => {
     watch.watch(state, "error", async () => {
         logger.error(`${getError()} | Application will restart.`);
         await browser.close();
-        // process.kill();
+        // process.kill(); //TODO: find a way to kill old process of node
         await init();
     });
 };
