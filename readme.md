@@ -1,4 +1,4 @@
-![logo](./logo.jpg)
+![logo](./assets/logo.jpg)
 
 
 
@@ -41,3 +41,9 @@ Command to show logs without log into the vps server:
 
 ssh <your_ssh_alias> 'tail -n <number_of_last_lines_from_log> /root/projects/retwiter/logs/logs.log'
 example ssh myVps 'tail -n 50 /root/projects/retwiter/logs/logs.log'
+example for get errors ssh myVps 'tail -n 50 /root/projects/retwiter/logs/logs.log' | grep error
+
+example of logs in app:
+![example of logs](./assets/logs-ex.jpg)
+
+retwiter have simple preventing stop action, if app catch fatal error that can stop the application app will be restarted. This let the app working all the time on the vps without watching it.
