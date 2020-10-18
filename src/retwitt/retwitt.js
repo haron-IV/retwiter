@@ -19,7 +19,7 @@ const retwitt = async (page) => {
         await delay(calcMinsToMs(waitMinsAfterRetwitt));
         await retwitt(page);
     } else {
-        logger.warning("Twitt was already shared.");
+        logger.warn("Twitt was already shared.");
         await delay(calcMinsToMs(waitMinsAfterSelectingAlreadyRetwittedPost));
         await retwitt(page);
     }
