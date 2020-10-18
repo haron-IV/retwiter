@@ -35,7 +35,7 @@
 
 ## About The Project
 Retwiter is the node application that lets you automatize retwitting post from your account. The Retwiter application will get posts to retwitt from your following list. So you have to have at least one profile that you follow. You can run this application locally on your computer or on the VPS server.
-Application has a log system - if you want to read more about this section or other features go to the documentation of this project -> [[Retwiter wiki][documentation-link]]
+Application has a log system - if you want to read more about this section or other features go to the documentation of this project -> [Retwiter wiki][documentation-link]
 
 ### Built With
 * [Nodejs](https://nodejs.org/en/)
