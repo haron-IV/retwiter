@@ -6,6 +6,8 @@ const { login } = require('./src/login/login');
 const { retwitt } = require('./src/retwitt/retwitt');
 const { connectToDb } = require('./src/database-management/index');
 const { logo } = require('./logo');
+const { state, getError } = require('./app-state');
+const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -27,12 +29,14 @@ const init = async () => {
     const { page, browser } = await initPage();
     logo();
     connectToDb();
+    // TODO: test it then add getting errors on major functionalities with DOM
+    watch.watch(state, "error", async () => {
+        console.log(getError());
+        await browser.close();
+        await init();
+    });
     await login(page, process.env.USERNAME, process.env.PASSWORD);
     await retwitt(page, browser);
 };
 
 init();
-
-module.exports = { init };
-
-// TODO: Catch errors and after error that stop working the app restart whole application or go to base retwitt() method
