@@ -38,7 +38,7 @@ const init = async () => {
     const { page, browser } = await initPage();
     logo();
     connectToDb();
-    watchErrors();
+    watchErrors(browser);
     await login(page, process.env.USERNAME, process.env.PASSWORD);
     await retwitt(page, browser);
 };
