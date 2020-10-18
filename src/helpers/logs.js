@@ -33,4 +33,8 @@ const actionLog = text => {
     console.log(`| ${createFullDate()} | - ${text} -`);
 };
 
-module.exports = { infoLog, baseLog, actionLog };
+const errorLog = (text) => {
+    console.log(`%c ${text}, color:red`)
+};
+
+module.exports = { infoLog, baseLog, actionLog, errorLog };

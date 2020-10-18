@@ -11,29 +11,37 @@ const clickRetwittButton = async page => {
         await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
         await page.waitForSelector(retwittBtn, { visible: true});
         await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
-    } catch (err){
-        setError(err);
+    } catch {
+        setError("Error: clickRetwittButton()");
     }
 };
 
 const getTwittAutor = async page => {
-    const twittAuthorEl = await page.$(twittAuthorNameHolder);
-    const twittAuthor = await page.evaluate(twittAuthorEl => twittAuthorEl.textContent, twittAuthorEl);
+    try {
+        const twittAuthorEl = await page.$(twittAuthorNameHolder);
+        const twittAuthor = await page.evaluate(twittAuthorEl => twittAuthorEl.textContent, twittAuthorEl);
 
-    return twittAuthor;
+        return twittAuthor;
+    } catch {
+        setError("Error: getTwittAutor()");
+    }
 };
 
 const confirmRetwitt = async (page, twittUrl) => {
-    await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
-    await page.waitForSelector(confirmRetwittBtn, { visible: true});
-    await page.click(confirmRetwittBtn);
-    saveRetwittedPost({
-        twittUrl: twittUrl,
-        retwittDate: createFullDate(),
-        retwittedFrom: await getTwittAutor(page)
-    });
-    increaseRetwitedPostsCount();
-    actionLog(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
+    try {
+        await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
+        await page.waitForSelector(confirmRetwittBtn, { visible: true});
+        await page.click(confirmRetwittBtn);
+        saveRetwittedPost({
+            twittUrl: twittUrl,
+            retwittDate: createFullDate(),
+            retwittedFrom: await getTwittAutor(page)
+        });
+        increaseRetwitedPostsCount();
+        actionLog(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
+    } catch {
+        setError("Error: confirmRetwitt()");
+    }
 };
 
 module.exports = { clickRetwittButton,  confirmRetwitt };

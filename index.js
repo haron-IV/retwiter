@@ -8,6 +8,7 @@ const { connectToDb } = require('./src/database-management/index');
 const { logo } = require('./logo');
 const { state, getError } = require('./app-state');
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
+const { errorLog } = require('./src/helpers/logs');
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -25,16 +26,19 @@ const initPage = async () => {
     return { page, browser };
 };
 
+const watchErrors = async browser => {
+    watch.watch(state, "error", async () => {
+        errorLog(`${getError()} | Application will restart.`);
+        await browser.close();
+        await init();
+    });
+};
+
 const init = async () => {
     const { page, browser } = await initPage();
     logo();
     connectToDb();
-    // TODO: test it then add getting errors on major functionalities with DOM
-    watch.watch(state, "error", async () => {
-        console.log(getError());
-        await browser.close();
-        await init();
-    });
+    watchErrors();
     await login(page, process.env.USERNAME, process.env.PASSWORD);
     await retwitt(page, browser);
 };
