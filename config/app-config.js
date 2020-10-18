@@ -8,4 +8,6 @@ module.exports = {
     waitMinsAfterRetwitt: 10, //15
     waitMinsAfterSelectingAlreadyRetwittedPost: 5, //2
     waitSecBeforeClickRetwittButtons: 3
-}
+};
+
+// TODO: create local and prod version of configuration
