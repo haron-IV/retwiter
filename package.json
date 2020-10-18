@@ -20,6 +20,7 @@
     "dotenv": "^8.2.0",
     "melanke-watchjs": "^1.5.2",
     "mongoose": "^5.10.9",
-    "puppeteer": "^5.3.1"
+    "puppeteer": "^5.3.1",
+    "winston": "^3.3.3"
   }
 }
