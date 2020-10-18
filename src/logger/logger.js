@@ -4,6 +4,10 @@ const customFormat = format.printf(({ level, message, timestamp}) => {
     return `${timestamp} | ${level}: ${message}`;
 });
 
+const customFormatFile = format.printf(({ level, message, timestamp}) => {
+    return `{timestamp: "${timestamp}", level: "${level}",  message: "${message}"}`;
+});
+
 const logger = createLogger({
     transports: [
         new transports.File({
@@ -17,7 +21,7 @@ const logger = createLogger({
                 format.timestamp({
                     format: 'YYYY-MM-DD ( HH:mm:ss )'
                 }),
-                customFormat
+                customFormatFile
             )
         }),
         new transports.Console({
