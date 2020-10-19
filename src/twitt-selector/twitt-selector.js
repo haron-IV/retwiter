@@ -8,8 +8,10 @@ const twittSelector = async (page) => {
         const twittsTime = await page.$$(twittTime);
         const selectedTwitt = await selectTwitt(page, twittsTime);
         const twittLink = await page.evaluate(selectedTwitt => selectedTwitt.parentNode.getAttribute("href"), selectedTwitt);
-
-        return twittLink;
+        
+        if (twittLink) return twittLink;
+        setError("Error: twittSelector() -> twittLink is undefined")
+        
     } catch {
         setError("Error: twittSelector()");
     }

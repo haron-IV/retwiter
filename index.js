@@ -12,6 +12,7 @@ const { logger } = require('./src/logger/logger');
 const { baseLog } = require('./src/helpers/logs');
 
 // TODO: update readme and docs with maved sh files infto direcotry /scripts
+// TODO: add hshtags to posts
 
 
 const getBrowserConfig = () => {
@@ -32,7 +33,6 @@ const initPage = async () => {
 
 const watchErrors = async browser => {
     watch.watch(state, "error", async () => {
-        baseLog("ERROR CATCHED");
         logger.error(`${getError()} | Application will restart.`);
         await browser.close();
         await init();
