@@ -18,7 +18,7 @@ const getRetwittedPostByUrl =  postUrl => {
 
 const getAllRetwittedPosts = () => {
     return RetwittedPostModel.find({}, twittList => twittList).
-    catch(err = > logger.error(err));
+    catch(err => logger.error(err));
 };
 
 module.exports = { saveRetwittedPost, getRetwittedPostByUrl, getAllRetwittedPosts };
