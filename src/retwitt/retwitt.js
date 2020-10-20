@@ -10,7 +10,7 @@ const retwitt = async (page) => {
     await page.goto(URLwithLangQuery('/home'));
     await delay(calcMinsToMs(waitMinsAfterGoToHome));
 
-    const twittToShareLink = URLwithLangQuery(await twittSelector(page));
+    const twittToShareLink = URLwithLangQuery(await twittSelector(page)); //TODO: here is problem
     logger.info(`Selected twitt to share:  ${twittToShareLink}`);
     if (!await wasTwittShared(twittToShareLink)) {
         await page.goto(twittToShareLink);
@@ -19,7 +19,7 @@ const retwitt = async (page) => {
         await delay(calcMinsToMs(waitMinsAfterRetwitt));
         await retwitt(page);
     } else {
-        logger.warning("Twitt was already shared.");
+        logger.warn("Twitt was already shared.");
         await delay(calcMinsToMs(waitMinsAfterSelectingAlreadyRetwittedPost));
         await retwitt(page);
     }

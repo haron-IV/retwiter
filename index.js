@@ -9,6 +9,11 @@ const { logo } = require('./logo');
 const { state, getError } = require('./app-state');
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
 const { logger } = require('./src/logger/logger');
+const { baseLog } = require('./src/helpers/logs');
+
+// TODO: update readme and docs with maved sh files infto direcotry /scripts
+// TODO: add hshtags to posts
+
 
 const getBrowserConfig = () => {
     const env = process.env.ENV;
@@ -27,10 +32,12 @@ const initPage = async () => {
 };
 
 const watchErrors = async browser => {
-    watch.watch(state, "error", async browser => {
+    watch.watch(state, "error", async () => {
         logger.error(`${getError()} | Application will restart.`);
         await browser.close();
         await init();
+        process.kill(process.pid); //TODO: find a way to kill old process of node
+        // TODO: add disconnection from mongo
     });
 };
 
