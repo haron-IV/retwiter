@@ -10,7 +10,7 @@ const retwitt = async (page) => {
     await page.goto(URLwithLangQuery('/home'));
     await delay(calcMinsToMs(waitMinsAfterGoToHome));
 
-    const twittToShareLink = URLwithLangQuery(await twittSelector(page));
+    const twittToShareLink = URLwithLangQuery(await twittSelector(page)); //TODO: here is problem
     logger.info(`Selected twitt to share:  ${twittToShareLink}`);
     if (!await wasTwittShared(twittToShareLink)) {
         await page.goto(twittToShareLink);
