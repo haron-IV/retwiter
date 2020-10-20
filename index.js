@@ -9,7 +9,6 @@ const { logo } = require('./logo');
 const { state, getError } = require('./app-state');
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
 const { logger } = require('./src/logger/logger');
-const { baseLog } = require('./src/helpers/logs');
 
 // TODO: update readme and docs with maved sh files infto direcotry /scripts
 // TODO: add hshtags to posts
@@ -33,11 +32,13 @@ const initPage = async () => {
 
 const watchErrors = async browser => {
     watch.watch(state, "error", async () => {
+        const pid = process.pid; //TODO: move to place with erorr
         logger.error(`${getError()} | Application will restart.`);
-        await browser.close();
+        await browser.close(); // TODO: except to close browser just close the page then open it again - not restarting whole application needed
         await init();
-        process.kill(process.pid); //TODO: find a way to kill old process of node
+        process.kill(pid); //TODO: find a way to kill old process of node
         // TODO: add disconnection from mongo
+        //TODO: add debounce here
     });
 };
 

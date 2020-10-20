@@ -1,6 +1,7 @@
 const { twittTime } = require('./elements');
 const selectTwitt = require('./select-twitt');
 const { setError } = require('../../app-state');
+const { logger } = require('../logger/logger');
 
 const twittSelector = async (page) => {
     try {
@@ -12,8 +13,7 @@ const twittSelector = async (page) => {
         if (twittLink !== undefined) {
             return twittLink;
         }else {
-            console.log("Jebac PIS")
-            debugger;
+            logger.rror("twittSelector() -> twittLink is undefined");
             setError("Error: twittSelector() -> twittLink is undefined");
         }
         
