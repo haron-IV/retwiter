@@ -1,53 +1,30 @@
 require('dotenv').config();
-const puppeteer = require('puppeteer');
-const { local, prod } = require('./config/browser-config');
-const { twitterBaseUrlWithEnLang } = require('./config/app-config');
 const { login } = require('./src/login/login');
 const { retwitt } = require('./src/retwitt/retwitt');
 const { connectToDb } = require('./src/database-management/index');
 const { logo } = require('./src/helpers/logo');
-const { state, getError } = require('./src/state/app-state');
-const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
-const { logger } = require('./src/logger/logger');
+const { initPage, initBrowser } = require('./src/app-management/browser');
+const { watchErrors } = require('./src/helpers/errors');
 
 // TODO: update readme and docs with maved sh files infto direcotry /scripts
 // TODO: add hshtags to posts
 
-
-const getBrowserConfig = () => {
-    const env = process.env.ENV;
-    if(env === "local") return local;
-    return prod;
-};
-
-const initPage = async () => {
-    const browser = await puppeteer.launch(getBrowserConfig());
-    const page = await browser.newPage();
-    await page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
-    await page.setViewport({ width: 1440, height: 754 });
-    await page.goto(twitterBaseUrlWithEnLang);
-
-    return { page, browser };
-};
-
-const watchErrors = async browser => {
-    watch.watch(state, "error", async () => {
-        logger.error(`${getError().msg} | Application will restart.`);
-        await browser.close(); // TODO: except to close browser just close the page then open it again - not restarting whole application needed
-        await init();
-        process.kill(getError.appPID);
-        // TODO: add disconnection from mongo
-        //TODO: add debounce here
-    });
-};
-
-const init = async () => {
-    const { page, browser } = await initPage();
+const initApp = async () => {
+    const browser = await initBrowser();
+    const page = await initPage(browser);
     logo();
     connectToDb();
-    watchErrors(browser);
+    watchErrors(page);
     await login(page, process.env.USERNAME, process.env.PASSWORD);
-    await retwitt(page, browser);
+    await retwitt(page);
 };
 
-init();
+const initAppAfterError = async () => {
+    const page = await initPage();
+    await login(page, process.env.USERNAME, process.env.PASSWORD);
+    await retwitt(page);
+};
+
+initApp();
+
+module.exports = { initAppAfterError };
