@@ -3,6 +3,7 @@ const { state, getError, getBrowser } = require('../state/app-state');
 const { logger } = require('../logger/logger');
 const { initPage } = require('../app-management/browser');
 const { retwitt } = require('../retwitt/retwitt');
+const { delay, calcSecToMs } = require('./time');
 
 const initAppAfterError = async () => {
     const page = await initPage(await getBrowser());
@@ -10,7 +11,8 @@ const initAppAfterError = async () => {
 };
 
 const restartApp = async page => {
-    logger.error(`${getError().msg} | Application will restart.`);
+    logger.error(`${getError().msg} | Application will restart.`); //TODO: sometimes getError is undefined
+    await delay(calcSecToMs(5));    
     await page.close();
     await initAppAfterError();
     //TODO: add debounce here - fristly check if it need to be debounced

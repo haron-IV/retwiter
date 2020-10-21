@@ -9,10 +9,10 @@ const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('
 const clickRetwittButton = async page => {
     try {
         await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
-        await page.waitForSelector(retwittBtn, { visible: true});
+        await page.waitForSelector(retwittBtn, { visible: true });
         await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
     } catch {
-        setError({ msg: "Error: clickRetwittButton()", appPID: process.pid});
+        setError({ msg: "clickRetwittButton()", appPID: process.pid});
     }
 };
 
@@ -23,7 +23,7 @@ const getTwittAutor = async page => {
 
         return twittAuthor;
     } catch {
-        setError({ msg: "Error: getTwittAutor()", appPID: process.pid});
+        setError({ msg: "getTwittAutor()", appPID: process.pid});
     }
 };
 
@@ -40,7 +40,7 @@ const confirmRetwitt = async (page, twittUrl) => {
         increaseRetwitedPostsCount();
         logger.info(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
     } catch {
-        setError({ masg: "Error: confirmRetwitt()", appPID: process.pid });
+        setError({ masg: "confirmRetwitt()", appPID: process.pid });
     }
 };
 
