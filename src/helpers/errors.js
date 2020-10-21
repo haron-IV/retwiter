@@ -1,7 +1,6 @@
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
 const { state, getError } = require('../state/app-state');
 const { logger } = require('../logger/logger');
-const { initAppAfterError } = require('../../index');
 const { initPage } = require('../app-management/browser');
 const { login } = require('../login/login');
 const { retwitt } = require('../retwitt/retwitt');
