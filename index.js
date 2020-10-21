@@ -5,12 +5,14 @@ const { connectToDb } = require('./src/database-management/index');
 const { logo } = require('./src/helpers/logo');
 const { initPage, initBrowser } = require('./src/app-management/browser');
 const { watchErrors } = require('./src/helpers/errors');
+const { setBrowser } = require('./src/state/app-state');
 
 // TODO: update readme and docs with maved sh files infto direcotry /scripts
 // TODO: add hshtags to posts
 
 const initApp = async () => {
     const browser = await initBrowser();
+    await setBrowser(browser);
     const page = await initPage(browser);
     logo();
     connectToDb();
