@@ -1,5 +1,5 @@
 const { getRetwittedPostByUrl } = require('../database-management/repository/retwitted-post-repository');
-const { setError } = require('../../app-state');
+const { setError } = require('../state/app-state');
 
 const wasTwittShared = async (twittUrl) => {
     try {

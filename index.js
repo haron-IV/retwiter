@@ -5,8 +5,8 @@ const { twitterBaseUrlWithEnLang } = require('./config/app-config');
 const { login } = require('./src/login/login');
 const { retwitt } = require('./src/retwitt/retwitt');
 const { connectToDb } = require('./src/database-management/index');
-const { logo } = require('./logo');
-const { state, getError } = require('./app-state');
+const { logo } = require('./src/helpers/logo');
+const { state, getError } = require('./src/state/app-state');
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
 const { logger } = require('./src/logger/logger');
 

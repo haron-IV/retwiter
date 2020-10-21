@@ -1,6 +1,6 @@
 const { twittTime } = require('./elements');
 const selectTwitt = require('./select-twitt');
-const { setError } = require('../../app-state');
+const { setError } = require('../state/app-state');
 const { logger } = require('../logger/logger');
 
 const twittSelector = async (page) => {

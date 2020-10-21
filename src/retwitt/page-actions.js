@@ -4,7 +4,7 @@ const { createFullDate } = require('../helpers/date');
 const { waitSecBeforeClickRetwittButtons } = require('../../config/app-config');
 const { calcSecToMs, delay } = require('../helpers/time');
 const { logger } = require('../logger/logger');
-const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('../../app-state');
+const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('../state/app-state');
 
 const clickRetwittButton = async page => {
     try {
