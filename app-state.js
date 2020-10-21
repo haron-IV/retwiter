@@ -1,6 +1,9 @@
 const state = {
     retwittedPosts: 0,
-    error: null
+    error: { 
+        msg: null,
+        appPID: null
+    }
 };
 
 const increaseRetwitedPostsCount = () => state.retwittedPosts++;

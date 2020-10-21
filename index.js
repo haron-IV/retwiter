@@ -32,11 +32,10 @@ const initPage = async () => {
 
 const watchErrors = async browser => {
     watch.watch(state, "error", async () => {
-        const pid = process.pid; //TODO: move to place with erorr
-        logger.error(`${getError()} | Application will restart.`);
+        logger.error(`${getError().msg} | Application will restart.`);
         await browser.close(); // TODO: except to close browser just close the page then open it again - not restarting whole application needed
         await init();
-        process.kill(pid); //TODO: find a way to kill old process of node
+        process.kill(getError.appPID);
         // TODO: add disconnection from mongo
         //TODO: add debounce here
     });

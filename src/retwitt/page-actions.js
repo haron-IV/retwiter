@@ -12,7 +12,7 @@ const clickRetwittButton = async page => {
         await page.waitForSelector(retwittBtn, { visible: true});
         await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
     } catch {
-        setError("Error: clickRetwittButton()");
+        setError({ msg: "Error: clickRetwittButton()", appPID: process.pid});
     }
 };
 
@@ -23,7 +23,7 @@ const getTwittAutor = async page => {
 
         return twittAuthor;
     } catch {
-        setError("Error: getTwittAutor()");
+        setError({ msg: "Error: getTwittAutor()", appPID: process.pid});
     }
 };
 
@@ -40,7 +40,7 @@ const confirmRetwitt = async (page, twittUrl) => {
         increaseRetwitedPostsCount();
         logger.info(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
     } catch {
-        setError("Error: confirmRetwitt()");
+        setError({ masg: "Error: confirmRetwitt()", appPID: process.pid });
     }
 };
 

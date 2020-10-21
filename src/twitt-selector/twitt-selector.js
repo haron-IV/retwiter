@@ -14,12 +14,12 @@ const twittSelector = async (page) => {
             return twittLink;
         }else {
             logger.rror("twittSelector() -> twittLink is undefined");
-            setError("Error: twittSelector() -> twittLink is undefined");
+            setError({ msg: "Error: twittSelector() -> twittLink is undefined", appPID: process.pid });
         }
         
         
     } catch {
-        setError("Error: twittSelector()");
+        setError({ msg: "Error: twittSelector()", appPID: process.pid });
     }
 };
 
