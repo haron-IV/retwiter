@@ -19,12 +19,4 @@ const initApp = async () => {
     await retwitt(page);
 };
 
-const initAppAfterError = async () => {
-    const page = await initPage();
-    await login(page, process.env.USERNAME, process.env.PASSWORD);
-    await retwitt(page);
-};
-
 initApp();
-
-module.exports = { initAppAfterError };
