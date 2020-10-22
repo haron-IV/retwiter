@@ -1,12 +1,7 @@
 const puppeteer = require('puppeteer');
-const { twitterBaseUrlWithEnLang } = require('../../config/app-config');
-const { local, prod } = require('../../config/browser-config');
-
-const getBrowserConfig = () => {
-    const env = process.env.ENV;
-    if(env === "local") return local;
-    return prod;
-};
+const { getBrowserConfig } = require('../helpers/config-selector');
+const { getAppConfig } = require('../helpers/config-selector');
+const { twitterBaseUrlWithEnLang } = getAppConfig();
 
 const initBrowser = async () => {
     return await puppeteer.launch(getBrowserConfig());

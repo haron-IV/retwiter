@@ -1,10 +1,12 @@
 const { retwittBtn, confirmRetwittBtn, twittAuthorNameHolder } = require('./elements');
 const { saveRetwittedPost } = require('../database-management/repository/retwitted-post-repository');
 const { createFullDate } = require('../helpers/date');
-const { waitSecBeforeClickRetwittButtons } = require('../../config/app-config');
+const { getAppConfig } = require('../helpers/config-selector');
 const { calcSecToMs, delay } = require('../helpers/time');
 const { logger } = require('../logger/logger');
 const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('../state/app-state');
+
+const { waitSecBeforeClickRetwittButtons } = getAppConfig();
 
 const clickRetwittButton = async page => {
     try {
