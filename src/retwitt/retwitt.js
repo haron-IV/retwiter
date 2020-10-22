@@ -7,10 +7,10 @@ const { clickRetwittButton,  confirmRetwitt } = require('./page-actions');
 const { twittLink } = require('./create-twitt-link');
 
 const retwitt = async (page) => {
-    await page.goto(URLwithLangQuery('/home'));
+    await page.goto(await URLwithLangQuery('/home'));
     await delay(calcMinsToMs(waitMinsAfterGoToHome));
-    const twittToShareLink = twittLink(page);
-    
+    const twittToShareLink = await twittLink(page);
+
     logger.info(`Selected twitt to share:  ${twittToShareLink}`);
     if (!await wasTwittShared(twittToShareLink)) {
         await page.goto(twittToShareLink);
