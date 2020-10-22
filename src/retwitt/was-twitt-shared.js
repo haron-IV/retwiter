@@ -7,7 +7,7 @@ const wasTwittShared = async (twittUrl) => {
         if (twitt.length === 0) return false;
         return true;
     } catch {
-        setError({ msg:"Error: wasTwittShared()", appPID: process.pid });
+        setError({ msg:"wasTwittShared()", appPID: process.pid });
     }
 };
 

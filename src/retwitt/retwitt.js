@@ -1,16 +1,16 @@
-const { twittSelector } = require('../twitt-selector/twitt-selector');
 const { logger } = require('../logger/logger');
 const { waitMinsAfterGoToHome, waitMinsAfterRetwitt, waitMinsAfterSelectingAlreadyRetwittedPost } = require('../../config/app-config');
 const { wasTwittShared } = require('./was-twitt-shared');
 const { calcMinsToMs, delay } = require('../helpers/time');
 const { URLwithLangQuery } = require('../helpers/url-builder');
 const { clickRetwittButton,  confirmRetwitt } = require('./page-actions');
+const { twittLink } = require('./create-twitt-link');
 
 const retwitt = async (page) => {
     await page.goto(URLwithLangQuery('/home'));
     await delay(calcMinsToMs(waitMinsAfterGoToHome));
-
-    const twittToShareLink = URLwithLangQuery(await twittSelector(page)); //TODO: here is problem
+    const twittToShareLink = twittLink(page);
+    
     logger.info(`Selected twitt to share:  ${twittToShareLink}`);
     if (!await wasTwittShared(twittToShareLink)) {
         await page.goto(twittToShareLink);
