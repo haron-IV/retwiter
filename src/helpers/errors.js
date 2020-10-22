@@ -21,7 +21,6 @@ const restartApp = async page => {
     logger.info("Page closed.");
     await delay(calcSecToMs(secondsToRestart));
     await initAppAfterError();
-    //TODO: add debounce here - fristly check if it need to be debounced
 };
 
 const watchErrors = async page => {
