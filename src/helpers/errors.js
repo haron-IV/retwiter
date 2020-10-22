@@ -15,9 +15,8 @@ const initAppAfterError = async () => {
 };
 
 const restartApp = async page => {
-    logger.error(`${getError().msg} | Application will restart after ${secondsToRestart}s.`); //TODO: sometimes getError is undefined
-    await delay(calcSecToMs(secondsToRestart));
-    await page.close();
+    logger.error(`${getError().msg} | Application will restart after ${secondsToRestart}s.`);
+    await page.close(); // after this line, lines below arent executed
     logger.info("Page closed.");
     await delay(calcSecToMs(secondsToRestart));
     await initAppAfterError();
