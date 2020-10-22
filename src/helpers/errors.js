@@ -1,4 +1,5 @@
 const watch = require('melanke-watchjs'); //https://www.npmjs.com/package/melanke-watchjs
+const debounce = require('lodash.debounce');
 const { state, getError, getBrowser } = require('../state/app-state');
 const { logger } = require('../logger/logger');
 const { initPage } = require('../app-management/browser');
@@ -25,7 +26,7 @@ const restartApp = async page => {
 
 const watchErrors = async page => {
     watch.watch(state, "error", async () => {
-        await restartApp(page);
+        debounce(await restartApp(page), 1000);
     });
 };
 
