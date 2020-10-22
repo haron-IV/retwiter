@@ -1,10 +1,12 @@
 const { logger } = require('../logger/logger');
-const { waitMinsAfterGoToHome, waitMinsAfterRetwitt, waitMinsAfterSelectingAlreadyRetwittedPost } = require('../../config/app-config');
+const { getAppConfig } = require('../helpers/config-selector');
 const { wasTwittShared } = require('./was-twitt-shared');
 const { calcMinsToMs, delay } = require('../helpers/time');
 const { URLwithLangQuery } = require('../helpers/url-builder');
 const { clickRetwittButton,  confirmRetwitt } = require('./page-actions');
 const { twittLink } = require('./create-twitt-link');
+
+const { waitMinsAfterGoToHome, waitMinsAfterRetwitt, waitMinsAfterSelectingAlreadyRetwittedPost } = getAppConfig();
 
 const retwitt = async (page) => {
     await page.goto(await URLwithLangQuery('/home'));
