@@ -46,4 +46,11 @@ const confirmRetwitt = async (page, twittUrl) => {
     }
 };
 
-module.exports = { clickRetwittButton,  confirmRetwitt };
+const likeTwitt = async page => {
+    // get twitt button in ./elements.js
+    // wait for selector
+    // click like button
+    // add log about like
+};
+
+module.exports = { clickRetwittButton,  confirmRetwitt, likeTwitt };
