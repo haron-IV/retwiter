@@ -9,7 +9,6 @@ const { setBrowser } = require('./src/state/app-state');
 
 // TODO: update readme and docs with maved sh files infto direcotry /scripts
 // TODO: add hshtags to posts
-//TODO: add to missing packages forever for as global dependency and configuration
 
 const initApp = async () => {
     const browser = await initBrowser();

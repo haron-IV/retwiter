@@ -5,8 +5,9 @@ const { logger } = require('../logger/logger');
 const { initPage } = require('../app-management/browser');
 const { retwitt } = require('../retwitt/retwitt');
 const { delay, calcSecToMs } = require('./time');
+const { getAppConfig } = require('../helpers/config-selector');
 
-const secondsToRestart = 5;
+const { secondsToRestart } = getAppConfig();
 
 const initAppAfterError = async () => {
     const page = await initPage(await getBrowser());
