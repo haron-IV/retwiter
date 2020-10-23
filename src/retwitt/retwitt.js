@@ -27,9 +27,13 @@ const retwitt = async (page) => {
     await page.goto(await URLwithLangQuery('/home'));
     await delay(calcMinsToMs(waitMinsAfterGoToHome));
     const twittToShareLink = await twittLink(page);
-
-    if (!await wasTwittShared(twittToShareLink)) await shareTwittAndRepeat(page, twittToShareLink);
-    else await twittWasAlreadyShared(page);
+    
+    if (twittToShareLink) {
+        if (!await wasTwittShared(twittToShareLink)) await shareTwittAndRepeat(page, twittToShareLink);
+        else await twittWasAlreadyShared(page);
+    } else {
+        await retwitt(page);
+    }
 };
 
 module.exports = { retwitt };
