@@ -16,7 +16,7 @@ const initAppAfterError = async () => {
 
 const restartApp = async page => {
     logger.error(`${getError().msg} | Application will restart after ${secondsToRestart}s.`);
-    await page.close(); // after this line, lines below arent executed
+    await page.close();
     logger.info("Page closed.");
     await delay(calcSecToMs(secondsToRestart));
     await initAppAfterError();
@@ -24,7 +24,7 @@ const restartApp = async page => {
 
 const watchErrors = async page => {
     watch.watch(state, "error", async () => {
-        debounce(await restartApp(page), 1000);
+        debounce(await restartApp(page), 10000);
     });
 };
 
