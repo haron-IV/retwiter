@@ -1,4 +1,4 @@
-const { retwittBtn, confirmRetwittBtn, twittAuthorNameHolder } = require('./elements');
+const { retwittBtn, confirmRetwittBtn, twittAuthorNameHolder, likeTwittBtn } = require('./elements');
 const { saveRetwittedPost } = require('../database-management/repository/retwitted-post-repository');
 const { createFullDate } = require('../helpers/date');
 const { getAppConfig } = require('../helpers/config-selector');
@@ -46,4 +46,14 @@ const confirmRetwitt = async (page, twittUrl) => {
     }
 };
 
-module.exports = { clickRetwittButton,  confirmRetwitt };
+const likeTwitt = async page => {
+    try {
+        await page.waitForSelector(likeTwittBtn, { visible: true });
+        await page.click(likeTwittBtn);
+        logger.info("Twitt liked.");
+    } catch {
+        setError({ masg: "likeTwitt()", appPID: process.pid });
+    }
+};
+
+module.exports = { clickRetwittButton,  confirmRetwitt, likeTwitt };
