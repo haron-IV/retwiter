@@ -28,10 +28,11 @@ const createHashtagsText = () => {
 };
 
 const addHashTags = async page => {
-    const hashtagsText = createHashtagsText();
-    if (isOn) await putTextIntoRetwittComment(page, hashtagsText);
-    else logger.info("Adding hashtages isn't turned on.");
-    
+    const hashtagsText = `${createHashtagsText()} `; // space on the end of string with hashtas is important for close twitter hashtags select
+    if (isOn) { 
+        await putTextIntoRetwittComment(page, hashtagsText);
+        logger.info(`Hashtags added.`);
+    }
 };
 
 module.exports = { addHashTags,  putTextIntoRetwittComment};
