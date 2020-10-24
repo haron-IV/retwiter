@@ -5,23 +5,8 @@ const { getAppConfig } = require('../helpers/config-selector');
 const { calcSecToMs, delay } = require('../helpers/time');
 const { logger } = require('../logger/logger');
 const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('../state/app-state');
-
-
 const { waitSecBeforeClickRetwittButtons } = getAppConfig();
 
-const clickRetwittButton = async page => {
-    const twittAuthor = await getTwittAutor(page);
-    if (twittAuthor === process.env.DISPLAY_USERNAME) return setError({ msg: "twittSelector() -> Cannto share your own twitt", appPID: process.pid });
-
-    try {
-        
-        await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
-        await page.waitForSelector(retwittBtn, { visible: true });
-        await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
-    } catch {
-        setError({ msg: "clickRetwittButton()", appPID: process.pid});
-    }
-};
 
 const getTwittAutor = async page => {
     try {
@@ -31,6 +16,26 @@ const getTwittAutor = async page => {
         return twittAuthor;
     } catch {
         setError({ msg: "getTwittAutor()", appPID: process.pid});
+    }
+};
+
+const checkAuthorBeforeShare = async page => {
+    const twittAuthor = await getTwittAutor(page);
+    
+    if (twittAuthor === process.env.DISPLAY_USERNAME) {
+        logger.error("Cannot share own posts.");
+        return false;
+    }
+    return true;
+};
+
+const clickRetwittButton = async page => {
+    try {
+        await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
+        await page.waitForSelector(retwittBtn, { visible: true });
+        await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
+    } catch {
+        setError({ msg: "clickRetwittButton()", appPID: process.pid});
     }
 };
 
@@ -61,4 +66,4 @@ const likeTwitt = async page => {
     }
 };
 
-module.exports = { clickRetwittButton,  confirmRetwitt, likeTwitt, getTwittAutor };
+module.exports = { clickRetwittButton,  confirmRetwitt, likeTwitt, getTwittAutor, checkAuthorBeforeShare };

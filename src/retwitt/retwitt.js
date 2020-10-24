@@ -3,7 +3,7 @@ const { getAppConfig } = require('../helpers/config-selector');
 const { wasTwittShared } = require('./was-twitt-shared');
 const { calcMinsToMs, delay } = require('../helpers/time');
 const { URLwithLangQuery } = require('../helpers/url-builder');
-const { clickRetwittButton,  confirmRetwitt, likeTwitt } = require('./page-actions');
+const { clickRetwittButton,  confirmRetwitt, likeTwitt, checkAuthorBeforeShare } = require('./page-actions');
 const { twittLink } = require('./create-twitt-link');
 const { addHashTags } = require('../hashtags/add-hashtags');
 
@@ -12,11 +12,13 @@ const { waitMinsAfterGoToHome, waitMinsAfterRetwitt, waitMinsAfterSelectingAlrea
 const shareTwittAndRepeat = async (page, twittToShareLink) => {
     logger.info(`Selected twitt to share:  ${twittToShareLink}`);
     await page.goto(twittToShareLink);
-    await likeTwitt(page);
-    await clickRetwittButton(page);
-    await addHashTags(page);
-    await confirmRetwitt(page, twittToShareLink);    
-    await delay(calcMinsToMs(waitMinsAfterRetwitt));
+    if (await checkAuthorBeforeShare(page)) {
+        await likeTwitt(page);
+        await clickRetwittButton(page);
+        await addHashTags(page);
+        await confirmRetwitt(page, twittToShareLink);    
+        await delay(calcMinsToMs(waitMinsAfterRetwitt));
+    }
     await retwitt(page);
 };
 
