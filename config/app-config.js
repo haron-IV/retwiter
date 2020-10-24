@@ -8,7 +8,14 @@ const local = {
     waitMinsAfterRetwitt: 1, //15
     waitMinsAfterSelectingAlreadyRetwittedPost: 1, //2
     waitSecBeforeClickRetwittButtons: 2,
-    secondsToRestart: 5
+    secondsToRestart: 5,
+    hashtags: {
+        isOn: true,
+        hashtagsArrays: [
+            ['takJest', 'polska', 'takSieDzieje', 'news'],
+            ['sport', 'retweet', 'covid', 'prostoZmostu']
+        ]
+    }
 };
 
 const prod = {
@@ -20,7 +27,14 @@ const prod = {
     waitMinsAfterRetwitt: 1, //15
     waitMinsAfterSelectingAlreadyRetwittedPost: 1, //2
     waitSecBeforeClickRetwittButtons: 2,
-    secondsToRestart: 25
+    secondsToRestart: 25,
+    hashtags: {
+        isOn: process.env.HASHTAGS,
+        hashtagsArrays: [
+            ['takJest', 'polska', 'takSieDzieje', 'news'],
+            ['sport', 'retweet', 'covid', 'prostoZmostu']
+        ]
+    }
 };
 
 module.exports = { local, prod };
