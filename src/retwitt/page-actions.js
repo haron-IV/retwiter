@@ -10,6 +10,7 @@ const { waitSecBeforeClickRetwittButtons } = getAppConfig();
 
 const getTwittAutor = async page => {
     try {
+        await page.waitForSelector(twittAuthorNameHolder);
         const twittAuthorEl = await page.$(twittAuthorNameHolder);
         const twittAuthor = await page.evaluate(twittAuthorEl => twittAuthorEl.textContent, twittAuthorEl);
 
