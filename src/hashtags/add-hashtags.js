@@ -27,6 +27,7 @@ const selectHashtagsArray = () => {
 };
 
 const createHashtagsText = () => {
+    // TODO: after few times string have empty hash at the start of the sting
     const hashtags = selectHashtagsArray();
     return hashtags
         .map( hashtag => hashtag[-1] = `#${hashtag}`)

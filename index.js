@@ -8,7 +8,7 @@ const { watchErrors } = require('./src/helpers/errors');
 const { setBrowser } = require('./src/state/app-state');
 
 // TODO: update readme and docs with maved sh files infto direcotry /scripts
-// TODO: add hshtags to posts
+// TODO: add to script that starts applicaition killall chrome at start for clear ram
 
 const initApp = async () => {
     const browser = await initBrowser();
