@@ -11,7 +11,7 @@ const local = {
     secondsToRestart: 5,
     hashtags: {
         isOn: true,
-        hashtags: [
+        hashtagsArrays: [
             ['takJest', 'polska', 'takSieDzieje', 'news'],
             ['sport', 'retweet', 'covid', 'prostoZmostu']
         ]
@@ -30,7 +30,7 @@ const prod = {
     secondsToRestart: 25,
     hashtags: {
         isOn: false,
-        hashtags: [
+        hashtagsArrays: [
             ['takJest', 'polska', 'takSieDzieje', 'news'],
             ['sport', 'retweet', 'covid', 'prostoZmostu']
         ]
