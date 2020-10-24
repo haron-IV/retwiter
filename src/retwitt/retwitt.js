@@ -11,8 +11,8 @@ const { waitMinsAfterGoToHome, waitMinsAfterRetwitt, waitMinsAfterSelectingAlrea
 const shareTwittAndRepeat = async (page, twittToShareLink) => {
     logger.info(`Selected twitt to share:  ${twittToShareLink}`);
     await page.goto(twittToShareLink);
-    await clickRetwittButton(page);
     await likeTwitt(page);
+    await clickRetwittButton(page);
     await confirmRetwitt(page, twittToShareLink);    
     await delay(calcMinsToMs(waitMinsAfterRetwitt));
     await retwitt(page);
