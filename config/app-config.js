@@ -29,7 +29,7 @@ const prod = {
     waitSecBeforeClickRetwittButtons: 2,
     secondsToRestart: 25,
     hashtags: {
-        isOn: false,
+        isOn: process.env.HASHTAGS,
         hashtagsArrays: [
             ['takJest', 'polska', 'takSieDzieje', 'news'],
             ['sport', 'retweet', 'covid', 'prostoZmostu']

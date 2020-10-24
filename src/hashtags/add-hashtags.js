@@ -7,22 +7,31 @@ const { randNumberFromZeroTo } = require('../helpers/random-number');
 const {  hashtags: { isOn },  hashtags: { hashtagsArrays } } = getAppConfig();
 
 const putTextIntoRetwittComment = async (page, text) => {
-    selectHashtagsArray();
     await page.waitForSelector(tweetTextHolder);
     await page.type(tweetTextHolder, text, typeDelay);
 };
 
 const selectHashtagsArray = () => {
-    const selectedArrayNumber= randNumberFromZeroTo(hashtagsArrays.length - 1);
+    const selectedArrayNumber = randNumberFromZeroTo(hashtagsArrays.length - 1);
     const hashtags = hashtagsArrays[selectedArrayNumber];
-    
+    hashtags.unshift('');
+
     return hashtags;
 };
 
+const createHashtagsText = () => {
+    const hashtags = selectHashtagsArray();
+    return hashtags
+        .map( hashtag => hashtag[-1] = `#${hashtag}`)
+        .slice(1, hashtags.length-1)
+        .join(" ");
+};
+
 const addHashTags = async page => {
-    if (isOn) await putTextIntoRetwittComment(page, "elo");
+    const hashtagsText = createHashtagsText();
+    if (isOn) await putTextIntoRetwittComment(page, hashtagsText);
     else logger.info("Adding hashtages isn't turned on.");
     
 };
 
-module.exports = { addHashTags };
+module.exports = { addHashTags,  putTextIntoRetwittComment};
