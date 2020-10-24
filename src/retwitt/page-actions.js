@@ -56,4 +56,4 @@ const likeTwitt = async page => {
     }
 };
 
-module.exports = { clickRetwittButton,  confirmRetwitt, likeTwitt };
+module.exports = { clickRetwittButton,  confirmRetwitt, likeTwitt, getTwittAutor };
