@@ -6,10 +6,15 @@ const { calcSecToMs, delay } = require('../helpers/time');
 const { logger } = require('../logger/logger');
 const { increaseRetwitedPostsCount, getRetwitedPostCount, setError } = require('../state/app-state');
 
+
 const { waitSecBeforeClickRetwittButtons } = getAppConfig();
 
 const clickRetwittButton = async page => {
+    const twittAuthor = await getTwittAutor(page);
+    if (twittAuthor === process.env.DISPLAY_USERNAME) return setError({ msg: "twittSelector() -> Cannto share your own twitt", appPID: process.pid });
+
     try {
+        
         await delay(calcSecToMs(waitSecBeforeClickRetwittButtons));
         await page.waitForSelector(retwittBtn, { visible: true });
         await page.evaluate(retwittBtn => document.querySelector(retwittBtn).click(), retwittBtn);
