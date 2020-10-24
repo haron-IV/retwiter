@@ -5,6 +5,7 @@ const { calcMinsToMs, delay } = require('../helpers/time');
 const { URLwithLangQuery } = require('../helpers/url-builder');
 const { clickRetwittButton,  confirmRetwitt, likeTwitt } = require('./page-actions');
 const { twittLink } = require('./create-twitt-link');
+const { addHashTags } = require('../hashtags/add-hashtags');
 
 const { waitMinsAfterGoToHome, waitMinsAfterRetwitt, waitMinsAfterSelectingAlreadyRetwittedPost } = getAppConfig();
 
@@ -13,6 +14,7 @@ const shareTwittAndRepeat = async (page, twittToShareLink) => {
     await page.goto(twittToShareLink);
     await likeTwitt(page);
     await clickRetwittButton(page);
+    await addHashTags(page);
     await confirmRetwitt(page, twittToShareLink);    
     await delay(calcMinsToMs(waitMinsAfterRetwitt));
     await retwitt(page);
