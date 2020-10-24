@@ -3,12 +3,19 @@ const { tweetTextHolder } = require('../retwitt/elements');
 const { typeDelay } = require('../helpers/navigation');
 const { getAppConfig } = require('../helpers/config-selector');
 const { randNumberFromZeroTo } = require('../helpers/random-number');
+const { setError } = require('../state/app-state');
 
 const {  hashtags: { isOn },  hashtags: { hashtagsArrays } } = getAppConfig();
 
 const putTextIntoRetwittComment = async (page, text) => {
-    await page.waitForSelector(tweetTextHolder);
-    await page.type(tweetTextHolder, text, typeDelay);
+    try {
+        await page.waitForSelector(tweetTextHolder);
+        await page.type(tweetTextHolder, text, typeDelay);
+    } catch {
+        logger.error(`putTextIntoRetwittComment() -> ${text}`);
+        setError({ msg: "putTextIntoRetwittComment()", appPID: process.pid });
+    }
+    
 };
 
 const selectHashtagsArray = () => {

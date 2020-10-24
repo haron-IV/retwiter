@@ -42,7 +42,7 @@ const confirmRetwitt = async (page, twittUrl) => {
         increaseRetwitedPostsCount();
         logger.info(`Post retwitted. Retwitted ${getRetwitedPostCount()} posts since start.`);
     } catch {
-        setError({ masg: "confirmRetwitt()", appPID: process.pid });
+        setError({ msg: "confirmRetwitt()", appPID: process.pid });
     }
 };
 
@@ -52,7 +52,7 @@ const likeTwitt = async page => {
         await page.click(likeTwittBtn);
         logger.info("Twitt liked.");
     } catch {
-        setError({ masg: "likeTwitt()", appPID: process.pid });
+        setError({ msg: "likeTwitt()", appPID: process.pid });
     }
 };
 
