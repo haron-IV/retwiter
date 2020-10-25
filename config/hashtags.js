@@ -1,6 +1,3 @@
 module.exports = {
-  hashtags: [
-    ["takJest", "polska", "takSieDzieje", "news"],
-    ["sport", "retweet", "covid", "prostoZmostu"],
-  ],
+  hashtags: [["takJest", "news", "info"]],
 };
