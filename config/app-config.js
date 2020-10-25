@@ -1,3 +1,5 @@
+const { hashtags } = require("./hashtags");
+
 // comments beside values are default values
 const local = {
   twitterBaseUrl: "https://twitter.com",
@@ -11,10 +13,7 @@ const local = {
   secondsToRestart: 5,
   hashtags: {
     isOn: true,
-    hashtagsArrays: [
-      ["takJest", "polska", "takSieDzieje", "news"],
-      ["sport", "retweet", "covid", "prostoZmostu"],
-    ],
+    hashtagsArrays: hashtags,
   },
 };
 
@@ -30,10 +29,7 @@ const prod = {
   secondsToRestart: 25,
   hashtags: {
     isOn: process.env.HASHTAGS,
-    hashtagsArrays: [
-      ["takJest", "polska", "takSieDzieje", "news"],
-      ["sport", "retweet", "covid", "prostoZmostu"],
-    ],
+    hashtagsArrays: hashtags,
   },
 };
 
