@@ -8,7 +8,6 @@ const { watchErrors } = require("./src/helpers/errors");
 const { setBrowser } = require("./src/state/app-state");
 
 // TODO: update readme and docs with maved sh files infto direcotry /scripts
-// TODO: add to script that starts applicaition killall chrome at start for clear ram (check if it is needed after running app via forever)
 // TODO: add liking all or most of recent coments from post
 
 const initApp = async () => {
