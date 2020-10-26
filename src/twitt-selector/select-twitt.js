@@ -1,4 +1,5 @@
-const { selectTwittNotOlderThanHours } = require('../../config/app-config');
+const { getAppConfig } = require('../helpers/config-selector');
+const { selectTwittNotOlderThanHours } = getAppConfig();
 
 const checkIfItIsHoursAgo = time => time.slice(-1)[0] === "h";
 const checkIfItIsMinutesAgo = time => time.slice(-1)[0] === "m";

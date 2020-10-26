@@ -1,5 +1,7 @@
-const { twitterBaseUrl, langQuery } = require('../../config/app-config');
+const { getAppConfig } = require('../helpers/config-selector');
 
-const URLwithLangQuery = (page) => `${twitterBaseUrl}${page}${langQuery}`
+const { twitterBaseUrl, langQuery } = getAppConfig();
+
+const URLwithLangQuery = async page => `${twitterBaseUrl}${page}${langQuery}`
 
 module.exports = { URLwithLangQuery };
